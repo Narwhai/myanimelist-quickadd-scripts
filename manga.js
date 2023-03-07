@@ -53,6 +53,8 @@ async function start(params) {
       mangaNumChapters = selectedManga.num_chapters;
     }
     
+    let mangaAuthors = getMangaAuthors(selectedManga.authors);
+
     QuickAdd.variables = {
         ...selectedManga,
         image: selectedManga.main_picture.medium,
@@ -63,6 +65,7 @@ async function start(params) {
         numChapters: mangaNumChapters,
         synopsis: selectedManga.synopsis,
         mangaStatus: selectedManga.status,
+        authors: mangaAuthors,
         fileName: replaceIllegalFileNameCharactersInString(selectedManga.title),
     };
 }
@@ -104,6 +107,22 @@ function getElementName(list){
   arr.forEach(element => results.push(element.name));
   results = linkifyList(results);
   return results;
+}
+
+function getMangaAuthors(list) {
+    console.log(list);
+    const arr = Array.from(list);
+    let results = [];
+    arr.forEach(element => {
+        console.log(element);
+        let fullName = '[[' + element.node.first_name + ' ' + element.node.last_name + ']]' + ' (' + element.role + ')';
+        console.log(fullName);
+        results.push(fullName);
+    });
+    // results = linkifyAuthors(results, roles);
+    console.log(results);
+    results = results.map((item) => `${item.trim()}`).join(", ");
+    return results;
 }
 
 function linkifyList(list) {
