@@ -7,7 +7,7 @@ anime.js will prompt the user for the anime title to use as the search term. The
 
 ![Example](/docs/ResultNotInLookup.png)
 
-In this case, I was looking for [this](https://myanimelist.net/anime/50864/Ooyukiumi_no_Kaina) entry for "Kaina of the Great Snow Sea". Searching for "Kaina" or "Ooyukiumi" would only return [this entry for a planned sequel movie](https://myanimelist.net/anime/54122/Ooyukiumi_no_Kaina_Movie). So instead, I took the ID that I wanted, in this case 50864 (can be found in the URL: anime/{anime_id}), input that in the animeById script, and was able to retrieve everything with no issues. 
+In this case, I was looking for [this](https://myanimelist.net/anime/50864/Ooyukiumi_no_Kaina) entry for "Ooyukiumi no Kaina (Kaina of the Great Snow Sea)". Searching for "Kaina" or "Ooyukiumi" would only return [this entry for a planned sequel movie](https://myanimelist.net/anime/54122/Ooyukiumi_no_Kaina_Movie). So instead, I took the ID that I wanted, in this case 50864 (can be found in the URL: anime/{anime_id}), input that in the animeById script, and was able to retrieve everything with no issues. 
 
 Selecting a movie from the lookup will not work because there are a lot of possible exceptions to what's in the fields, such as not having start/end dates, start seasons, etc. In this particular case, there's also no image associated with the movie, so that fails as well. 
 
