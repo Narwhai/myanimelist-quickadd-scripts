@@ -32,7 +32,7 @@ Click "configure" on your newly created macro,
 search for the script you'd like to add in the "User Scripts" box,
 then click Add.
 
-![Add Script]("./docs/ConfigureMacro-1.png")
+![Add Script](/docs/ConfigureMacro-1.png)
 
 Click the gear icon where your script was just added to,
 and you will be prompted for your Client ID. 
@@ -46,7 +46,7 @@ and fill the "File Name" field with the following to autoname the note:
 {{VALUE:fileName}}.
 You can also configure a default folder to save the newly created notes as well.
 
-![TemplateConfig]("./docs/ConfigureTemplate.png)
+![TemplateConfig](/docs/ConfigureTemplate.png)
 
 Once you're done,
 go back to the main QuickAdd settings page. 
@@ -54,22 +54,22 @@ Change the dropdown next to the "Add Choice" button to "Macro",
 and type in a name. 
 Click "Add Choice".
 
-![Add Choice]("./docs/EnableMacro.png")
+![Add Choice](/docs/EnableMacro.png)
 
 Click the gear icon on the newly added choice,
 select the macro you created from the dropdown,
 then close the pop up. 
 
-![Select Macro]("./docs/MacroSelect.png")
+![Select Macro](/docs/MacroSelect.png)
 
 Click the lightning bolt icon next to your Macro choice.
 
-![MacroChoice]("./docs/EnableMacro2.png")
+![MacroChoice](/docs/EnableMacro2.png)
 
 Close the settings, and open the command pallete. 
 Search for your QuickAdd macro:
 
-![QuickAdd]("./docs/QuickAddCommand.png")
+![QuickAdd](/docs/QuickAddCommand.png)
 
 ### Scripts
 
@@ -79,9 +79,9 @@ and QuickAdd will list them for the user to select one.
 Once selected, another API query will be made using the anime_id 
 to fetch the rest of the metadata. 
 
-![Enter Title]("./docs/Enter-Title.png")
+![Enter Title](/docs/Enter-Title.png)
 
-![Select Option]("./docs/Options.png")
+![Select Option](/docs/Options.png)
 
 manga.js works in the same way, 
 but the endpoint and fields are different.
