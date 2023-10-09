@@ -43,7 +43,7 @@ and fill the "File Name" field with the following to autoname the note:
 {{VALUE:fileName}}.
 You can also configure a default folder to save the newly created notes as well.
 
-
+### Scripts
 
 anime.js will prompt the user for the anime title to use as the search term. 
 The API will return a list of options,
