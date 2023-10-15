@@ -84,27 +84,11 @@ async function getByAnimeId(id) {
   return res;
 }
 
-function getGenreList(list){
-  const arr = Array.from(list);
-  let results = [];
-  arr.forEach(element => results.push(element.name));
-  results = commaList(results);
-  return results;
-}
-
 function getElementNameProperties(list) {
   const arr = Array.from(list);
   let results = [];
   arr.forEach(element => results.push(element.name));
   results = linkifyListProperties(results);
-  return results;
-}
-
-function getElementName(list){
-  const arr = Array.from(list);
-  let results = [];
-  arr.forEach(element => results.push(element.name));
-  results = linkifyList(results);
   return results;
 }
 
@@ -120,13 +104,6 @@ function linkifyListProperties(list) {
   if (list.length === 1) return `\n  - \"[[${list[0]}]]\"`;
 
   return list.map((item) => `\n  - \"[[${item.trim()}]]\"`).join("");
-}
-
-function linkifyList(list) {
-  if (list.length === 0) return "";
-  if (list.length === 1) return `[[${list[0]}]]`;
-
-  return list.map((item) => `[[${item.trim()}]]`).join(", ");
 }
 
 function getAltTitles(list) {
