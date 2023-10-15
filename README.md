@@ -36,7 +36,14 @@ then click Add.
 
 Click the gear icon where your script was just added to,
 and you will be prompted for your Client ID. 
-Close it once you've entered it.
+You will also see some toggles to enable/disable links on certain elements,
+they are enabled by default,
+and will turn each entry in the list of genres or studios into a link, 
+disabling it makes them plain lists. 
+Close the modal when you're done configuring it. 
+
+![ScriptConfig](/docs/ScriptConfig.png)
+
 
 Click "Template", 
 and then click the gear icon once it's added. 
