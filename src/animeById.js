@@ -2,6 +2,8 @@ const notice = (msg) => new Notice(msg, 5000);
 const log = (msg) => console.log(msg);
 
 const API_KEY_OPTION = "MyAnimeList API Key";
+const GENRE_LINKS = "Genre Links";
+const STUDIO_LINKS = "Studio Links";
 const API_URL = "https://api.myanimelist.net/v2/anime";
 const SEARCH_FIELDS_QUERY = "?fields=id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_episodes,start_season,broadcast,source,average_episode_duration,rating,pictures,background,related_anime,related_manga,recommendations,studios,statistics";
 
@@ -15,6 +17,14 @@ module.exports = {
         type: "text",
         defaultValue: "",
         placeholder: "MyAnimeList API Key",
+      },
+      [GENRE_LINKS]: {
+        type: "toggle",
+        defaultValue: "true",
+      },
+      [STUDIO_LINKS]: {
+        type: "toggle",
+        defaultValue: "true",
       },
     },
   },
@@ -59,8 +69,8 @@ async function start(params, settings) {
     malID: selectedAnime.id,
     startDate: selectedAnime.start_date,
     endDate: animeEndDate,
-    genreList: getElementNameProperties(selectedAnime.genres),
-    studios: getElementNameProperties(selectedAnime.studios),
+    genreList: getElementName(selectedAnime.genres, Settings[GENRE_LINKS]),
+    studios: getElementName(selectedAnime.studios, Settings[STUDIO_LINKS]),
     alternativeTitles: getAltTitles(selectedAnime.alternative_titles),
     title: replaceIllegalFileNameCharactersInString(selectedAnime.title),
     numEpisodes: animeNumEpisodes,
@@ -84,49 +94,27 @@ async function getByAnimeId(id) {
   return res;
 }
 
-function getGenreList(list){
+function getElementName(list, createLinks) {
+  if (list === undefined || list.length === 0) return "";
   const arr = Array.from(list);
   let results = [];
   arr.forEach(element => results.push(element.name));
-  results = commaList(results);
-  return results;
-}
-
-function getElementNameProperties(list) {
-  const arr = Array.from(list);
-  let results = [];
-  arr.forEach(element => results.push(element.name));
-  results = linkifyListProperties(results);
-  return results;
-}
-
-function getElementName(list){
-  const arr = Array.from(list);
-  let results = [];
-  arr.forEach(element => results.push(element.name));
-  results = linkifyList(results);
+  results = createLinks ? linkifyList(results) : commaList(results);
   return results;
 }
 
 function commaList(list) {
   if (list.length === 0) return "";
-  if (list.length === 1) return `${list[0]}`;
+  if (list.length === 1) return `\n  - \"${list[0]}\"`;
 
-  return list.map((item) => `${item.trim()}`).join(", ");
-}
-
-function linkifyListProperties(list) {
-  if (list.length === 0) return "";
-  if (list.length === 1) return `\n  - \"[[${list[0]}]]\"`;
-
-  return list.map((item) => `\n  - \"[[${item.trim()}]]\"`).join("");
+  return list.map((item) => `\n  - \"${item.trim()}\"`).join("");
 }
 
 function linkifyList(list) {
   if (list.length === 0) return "";
-  if (list.length === 1) return `[[${list[0]}]]`;
+  if (list.length === 1) return `\n  - \"[[${list[0]}]]\"`;
 
-  return list.map((item) => `[[${item.trim()}]]`).join(", ");
+  return list.map((item) => `\n  - \"[[${item.trim()}]]\"`).join("");
 }
 
 function getAltTitles(list) {

@@ -2,6 +2,7 @@ const notice = (msg) => new Notice(msg, 5000);
 const log = (msg) => console.log(msg);
 
 const API_KEY_OPTION = "MyAnimeList API Key";
+const GENRE_LINKS = "Genre Links"
 const API_URL = "https://api.myanimelist.net/v2/manga";
 const SEARCH_FIELDS_QUERY = "?fields=id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_volumes,num_chapters,authors{first_name,last_name},pictures,background,related_manga,related_manga,recommendations,serialization{name}";
 
@@ -15,6 +16,10 @@ module.exports = {
         type: "text",
         defaultValue: "",
         placeholder: "MyAnimeList API Key",
+      },
+      [GENRE_LINKS]: {
+        type: "toggle",
+        defaultValue: "true",
       },
     },
   },
@@ -71,7 +76,7 @@ async function start(params, settings) {
     image: selectedManga.main_picture.medium,
     startDate: selectedManga.start_date,
     endDate: mangaEndDate,
-    genreList: getElementNameProperties(selectedManga.genres),
+    genreList: getElementName(selectedManga.genres, Settings[GENRE_LINKS]),
     alternativeTitles: getAltTitles(selectedManga.alternative_titles),
     numChapters: mangaNumChapters,
     synopsis: selectedManga.synopsis,
@@ -112,59 +117,39 @@ async function getByMangaId(id) {
   return res;
 }
 
-function getGenreList(list) {
+function getElementName(list, createLinks) {
+  if (list === undefined || list.length === 0) return "";
   const arr = Array.from(list);
   let results = [];
   arr.forEach(element => results.push(element.name));
-  results = commaList(results);
-  return results;
-}
-function getElementNameProperties(list) {
-  const arr = Array.from(list);
-  let results = [];
-  arr.forEach(element => results.push(element.name));
-  results = linkifyListProperties(results);
+  results = createLinks ? linkifyList(results) : commaList(results);
   return results;
 }
 
-function getElementName(list){
-  const arr = Array.from(list);
-  let results = [];
-  arr.forEach(element => results.push(element.name));
-  results = linkifyList(results);
-  return results;
-}
-
-function getMangaAuthors(list) {
-  const arr = Array.from(list);
-  let results = [];
-  arr.forEach(element => {
-    let fullName = '[[' + element.node.first_name + ' ' + element.node.last_name + ']]' + ' (' + element.role + ')';
-    results.push(fullName);
-  });
-  results = results.map((item) => `${item.trim()}`).join(", ");
-  return results;
-}
-
-function commaList(list) {
-  if (list.length === 0) return "";
-  if (list.length === 1) return `${list[0]}`;
-
-  return list.map((item) => `${item.trim()}`).join(", ");
-}
-
-function linkifyListProperties(list) {
+function linkifyList(list) {
   if (list.length === 0) return "";
   if (list.length === 1) return `\n  - \"[[${list[0]}]]\"`;
 
   return list.map((item) => `\n  - \"[[${item.trim()}]]\"`).join("");
 }
 
-function linkifyList(list) {
+function commaList(list) {
   if (list.length === 0) return "";
-  if (list.length === 1) return `[[${list[0]}]]`;
+  if (list.length === 1) return `\n  - \"${list[0]}\"`;
 
-  return list.map((item) => `[[${item.trim()}]]`).join(", ");
+  return list.map((item) => `\n  - \"${item.trim()}\"`).join("");
+}
+
+function getMangaAuthors(list) {
+  const arr = Array.from(list);
+  let results = [];
+  arr.forEach(element => {
+    let fullName = '[[' + element.node.first_name + 
+      ' ' + element.node.last_name + ']]' + ' (' + element.role + ')';
+    results.push(fullName);
+  });
+  results = results.map((item) => `${item.trim()}`).join(", ");
+  return results;
 }
 
 function getAltTitles(list) {
