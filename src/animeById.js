@@ -77,6 +77,7 @@ async function start(params, settings) {
     startSeason: selectedAnime.start_season.year + " " + selectedAnime.start_season.season,
     synopsis: selectedAnime.synopsis,
     animeStatus: selectedAnime.status,
+    score: selectedAnime.mean,
     fileName: replaceIllegalFileNameCharactersInString(selectedAnime.title),
   };
 }

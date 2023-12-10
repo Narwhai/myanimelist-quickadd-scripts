@@ -96,6 +96,7 @@ async function start(params, settings) {
     animeStatus: selectedAnime.status,
     source: selectedAnime.source,
     nsfw: selectedAnime.nsfw,
+    score: selectedAnime.mean,
     fileName: replaceIllegalFileNameCharactersInString(selectedAnime.title),
   };
 }

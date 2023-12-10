@@ -82,6 +82,7 @@ async function start(params, settings) {
     synopsis: selectedManga.synopsis,
     mangaStatus: selectedManga.status,
     authors: mangaAuthors,
+    score: selectedManga.mean,
     fileName: replaceIllegalFileNameCharactersInString(selectedManga.title),
   };
 }
